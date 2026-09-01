@@ -1,7 +1,7 @@
 # Third-party licenses
 
-The production package has zero runtime, optional, peer, and bundled
-dependencies. Its installed production closure is one MIT-licensed root node.
+The production package has zero runtime, optional, peer, and bundled dependencies.
+Its installed production closure is one MIT-licensed root node.
 
 ## png-chunks-extract@1.0.0
 
