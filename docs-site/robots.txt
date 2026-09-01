@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /docs/vanilla/png-chunks-extract/
+
+Sitemap: https://alexandro.net/docs/vanilla/png-chunks-extract/sitemap.xml

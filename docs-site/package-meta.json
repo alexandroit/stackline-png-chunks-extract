@@ -1,0 +1,19 @@
+{
+  "acceptedInput": [
+    "Buffer",
+    "Uint8Array"
+  ],
+  "chunkLengthMaximum": 2147483647,
+  "crc": "IEEE CRC-32 for every chunk including IEND",
+  "moduleFormats": [
+    "callable CommonJS",
+    "native ESM default",
+    "browser bundler"
+  ],
+  "name": "@stackline/png-chunks-extract",
+  "productionDependencies": 0,
+  "runtimeFloor": "Node.js 18",
+  "types": "TypeScript 3.9 and modern conditional declarations",
+  "upstreamBaseline": "png-chunks-extract 1.0.0",
+  "version": "1.0.0"
+}

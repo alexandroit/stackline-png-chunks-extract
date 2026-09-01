@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dependency-free, bounded PNG chunk extraction for Node.js and browsers.">
+  <title>@stackline/png-chunks-extract | Alexandro.Net</title>
+  <link rel="canonical" href="https://alexandro.net/docs/vanilla/png-chunks-extract/">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"@stackline/png-chunks-extract","version":"1.0.0","description":"Dependency-free PNG chunk extraction with bounded envelope and CRC validation.","codeRepository":"https://github.com/alexandroit/stackline-png-chunks-extract","license":"https://opensource.org/license/mit","programmingLanguage":["JavaScript","TypeScript"],"runtimePlatform":"Node.js >=18; modern browsers","url":"https://alexandro.net/docs/vanilla/png-chunks-extract/"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to package documentation</a>
+  <header class="site-header">
+    <a class="wordmark" href="https://alexandro.net/" aria-label="Alexandro.Net home">Alexandro.Net</a>
+    <nav aria-label="Page navigation">
+      <a href="#install">Install</a>
+      <a href="#contract">Contract</a>
+      <a href="#errors">Errors</a>
+      <a href="#migration">Migration</a>
+    </nav>
+  </header>
+
+  <main id="content" tabindex="-1">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Maintained compatibility package</p>
+        <h1 id="page-title">@stackline/<span>png-chunks-extract</span></h1>
+        <p class="lede">Extract PNG chunks synchronously after proving every declared byte and validating every CRC—including <code>IEND</code>.</p>
+        <a class="button" href="https://github.com/alexandroit/stackline-png-chunks-extract">Browse source</a>
+      </div>
+      <aside class="facts" aria-label="Package facts">
+        <dl>
+          <div><dt>Version</dt><dd>1.0.0</dd></div>
+          <div><dt>Runtime</dt><dd>Node.js ≥18</dd></div>
+          <div><dt>Formats</dt><dd>CJS · ESM · browser</dd></div>
+          <div><dt>Types</dt><dd>TypeScript 3.9+</dd></div>
+          <div><dt>Production graph</dt><dd>1 node · 0 dependencies</dd></div>
+          <div><dt>License</dt><dd>MIT</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <section id="install" class="section" aria-labelledby="install-title">
+      <p class="eyebrow">Start here</p>
+      <h2 id="install-title">One callable function</h2>
+      <div class="code-card">
+        <button type="button" data-copy-target="install-command" aria-label="Copy install command">Copy</button>
+        <pre id="install-command"><code>npm install @stackline/png-chunks-extract@1.0.0</code></pre>
+      </div>
+      <div class="grid">
+        <article>
+          <h3>CommonJS</h3>
+          <pre><code>const extract = require('@stackline/png-chunks-extract')
+const chunks = extract(bytes)</code></pre>
+        </article>
+        <article>
+          <h3>ES modules</h3>
+          <pre><code>import extract from '@stackline/png-chunks-extract'
+const chunks = extract(bytes)</code></pre>
+        </article>
+      </div>
+      <p>Input may be a <code>Buffer</code> or <code>Uint8Array</code>. Output is an ordered array of <code>{ name, data }</code> objects whose payloads are detached <code>Uint8Array</code> copies.</p>
+    </section>
+
+    <section id="contract" class="section" aria-labelledby="contract-title">
+      <p class="eyebrow">Bounded parsing</p>
+      <h2 id="contract-title">Check the envelope before the allocation</h2>
+      <div class="grid features">
+        <article><h3>Complete boundaries</h3><p>Length, four-byte type, complete payload, and four-byte CRC must all fit before any payload allocation or copy.</p></article>
+        <article><h3>PNG size ceiling</h3><p>Declared chunk payloads above <code>2^31 - 1</code> bytes fail immediately with a stable <code>RangeError</code>.</p></article>
+        <article><h3>Every CRC</h3><p>An internal IEEE CRC-32 implementation validates type plus payload for ordinary chunks and zero-length <code>IEND</code>.</p></article>
+        <article><h3>Historical valid behavior</h3><p><code>IHDR</code> remains first, unknown and duplicate chunk types remain observable, and a valid <code>IEND</code> ends extraction.</p></article>
+      </div>
+      <p class="callout">This package validates chunk framing and integrity, not decoded image semantics. It deliberately ignores bytes after a valid <code>IEND</code> for upstream compatibility.</p>
+    </section>
+
+    <section id="errors" class="section" aria-labelledby="errors-title">
+      <p class="eyebrow">Malformed input</p>
+      <h2 id="errors-title">Deterministic field-level failures</h2>
+      <div class="table-wrap">
+        <table>
+          <caption>Validation boundaries and failure category</caption>
+          <thead><tr><th scope="col">Boundary</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Input type or signature</th><td><code>TypeError</code> or the historical invalid-header error</td></tr>
+            <tr><th scope="row">Length over PNG maximum</th><td><code>RangeError</code> before declaration-sized work</td></tr>
+            <tr><th scope="row">Partial field</th><td>Error names truncated length, type, data, or CRC</td></tr>
+            <tr><th scope="row">First chunk</th><td>Historical <code>IHDR header missing</code></td></tr>
+            <tr><th scope="row">CRC</th><td>Historical chunk-specific mismatch message</td></tr>
+            <tr><th scope="row"><code>IEND</code></th><td>Must be present, empty, complete, and CRC-valid</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="migration" class="section" aria-labelledby="migration-title">
+      <p class="eyebrow">Adoption</p>
+      <h2 id="migration-title">Keep the historical import key</h2>
+      <p>An npm alias lets existing <code>require('png-chunks-extract')</code> and default imports remain unchanged.</p>
+      <div class="code-card">
+        <button type="button" data-copy-target="alias-code" aria-label="Copy npm alias">Copy</button>
+        <pre id="alias-code"><code>{
+  "dependencies": {
+    "png-chunks-extract": "npm:@stackline/png-chunks-extract@1.0.0"
+  }
+}</code></pre>
+      </div>
+      <p>Run a clean install, the downstream test/build suite, one representative valid PNG, and malformed checks for a missing <code>IEND</code> CRC and a huge declared length without payload.</p>
+    </section>
+
+    <section class="section evidence" aria-labelledby="evidence-title">
+      <p class="eyebrow">Release evidence</p>
+      <h2 id="evidence-title">What the package gate covers</h2>
+      <ul>
+        <li>Exact upstream differential streams and generated README fixtures.</li>
+        <li>All incomplete fields, CRC and <code>IEND</code> regressions, deterministic fuzzing, and bounded large declarations.</li>
+        <li>20,000 chunks, an 8 MiB payload, CommonJS, ESM, browser bundling, npm alias, and TypeScript 3.9/current.</li>
+        <li>Strict package/type lint, licenses, one-node closure, CycloneDX SBOM, audits, and release inventory.</li>
+      </ul>
+      <p><a href="VERIFICATION.md">Verification guide</a> · <a href="COMPATIBILITY_CONTRACT.md">Full compatibility contract</a> · <a href="MIGRATION.md">Migration guide</a> · <a href="SECURITY.md">Security policy</a></p>
+    </section>
+
+    <section class="section attribution" aria-labelledby="attribution-title">
+      <h2 id="attribution-title">Independent maintenance and attribution</h2>
+      <p>This package is independently maintained and is not affiliated with or endorsed by Hugh Kennedy or the original project. Original MIT attribution is preserved.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="wordmark" href="https://alexandro.net/">Alexandro.Net</a>
+    <p>Open source package documentation. <a href="https://alexandro.net/">Return to the package registry</a>.</p>
+    <p class="copy-status" aria-live="polite"></p>
+  </footer>
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# @stackline/png-chunks-extract@1.0.0 on Alexandro.Net
+
+- Canonical documentation: https://alexandro.net/docs/vanilla/png-chunks-extract/
+- Source: https://github.com/alexandroit/stackline-png-chunks-extract
+- Upstream compatibility baseline: png-chunks-extract@1.0.0
+- Runtime: Node.js 18 or newer and modern browser bundlers
+- Module formats: callable CommonJS and native ESM default
+- Types: TypeScript 3.9-compatible CommonJS and conditional modern declarations
+- Production closure: one root node and zero dependencies
+- License: MIT
+
+Identity-preserving npm alias:
+
+png-chunks-extract@npm:@stackline/png-chunks-extract@1.0.0
+
+The package accepts Buffer and Uint8Array, returns detached Uint8Array chunk
+payloads, proves the full chunk envelope before payload allocation, enforces
+the 2^31 - 1 PNG length ceiling, and validates IEEE CRC-32 including IEND.

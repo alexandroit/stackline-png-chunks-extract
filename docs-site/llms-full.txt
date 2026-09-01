@@ -1,0 +1,39 @@
+# @stackline/png-chunks-extract@1.0.0
+
+Alexandro.Net documents `@stackline/png-chunks-extract@1.0.0`, an independently
+maintained, dependency-free compatibility continuation of
+`png-chunks-extract@1.0.0`.
+
+## Package identity
+
+- Documentation: https://alexandro.net/docs/vanilla/png-chunks-extract/
+- Source: https://github.com/alexandroit/stackline-png-chunks-extract
+- License: MIT with original Hugh Kennedy attribution
+- Runtime: Node.js 18 or newer; modern browser bundlers
+- Production graph: one node, zero runtime, optional, peer, or bundled dependencies
+
+## Contract
+
+The callable CommonJS root and native ESM default accept Buffer or Uint8Array
+and return the historical ordered `{ name, data }` array. Payload data is a
+detached Uint8Array copy. Valid chunk names, bytes, ordering, unknown chunks,
+duplicates, IHDR-first behavior, and trailing bytes after a valid IEND match
+the upstream package.
+
+Before output allocation, the parser proves the full length/type/data/CRC
+envelope with subtraction-based arithmetic. It rejects declarations above
+2^31 - 1, validates internal IEEE CRC-32 for every chunk including IEND,
+requires zero-length IEND, and assigns deterministic errors to incomplete
+length, type, data, and CRC fields. It validates chunk framing, not decoded
+image semantics.
+
+## Migration
+
+Existing imports can remain unchanged through the exact alias:
+
+`png-chunks-extract@npm:@stackline/png-chunks-extract@1.0.0`
+
+Downstreams should run a clean install, their ordinary tests/build, a valid PNG
+smoke test, and malformed tests for a missing IEND CRC and a huge declaration
+without payload. The replacement is independently maintained and is not
+affiliated with or endorsed by Hugh Kennedy or the original project.

@@ -1,0 +1,10 @@
+@stackline/png-chunks-extract is an independently maintained compatibility
+continuation of png-chunks-extract@1.0.0. It is not affiliated with or endorsed
+by Hugh Kennedy or the original project.
+
+The historical public API, error wording, and valid behavior derive from
+png-chunks-extract, Copyright (c) 2015 Hugh Kennedy, under the MIT License.
+
+The bounded parser and internal IEEE CRC-32 implementation were independently
+written for this package. The historical crc-32 runtime dependency is not
+included. See THIRD_PARTY_LICENSES.md.
