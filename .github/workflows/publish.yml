@@ -71,7 +71,7 @@ jobs:
           sha256sum "$archive"
           npm --version
       - name: Publish the exact CI tarball with OIDC and provenance
-        run: npm publish artifact/*.tgz --access public --provenance --ignore-scripts
+        run: npm publish ./artifact/*.tgz --access public --provenance --ignore-scripts
       - name: Verify npm bytes, normal installs, signatures, and provenance
         run: node scripts/verify-registry.mjs artifact/*.tgz
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a7 # v7.0.1
