@@ -5,6 +5,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
+import { retryAttestationAudit } from './registry-requests.mjs'
 
 const archive = path.resolve(process.argv[2])
 const localBytes = await readFile(archive)
@@ -34,6 +35,18 @@ assert.equal(official.dist.integrity, integrity)
 assert(official.dist.signatures?.length, 'registry signatures are required')
 assert(official.dist.attestations?.url, 'registry provenance is required')
 assert.equal(official.dist.attestations.provenance.predicateType, 'https://slsa.dev/provenance/v1')
+const attestationUrl = new URL(official.dist.attestations.url)
+assert.equal(attestationUrl.origin, registry)
+const attestations = await (await get(attestationUrl)).json()
+const provenance = attestations.attestations.find((entry) => entry.predicateType === 'https://slsa.dev/provenance/v1')
+assert(provenance?.bundle?.dsseEnvelope, 'provenance envelope is required')
+const statement = JSON.parse(Buffer.from(provenance.bundle.dsseEnvelope.payload, 'base64').toString('utf8'))
+assert(statement.subject.some((subject) => subject.digest.sha512 === createHash('sha512').update(localBytes).digest('hex')))
+const definition = statement.predicate.buildDefinition
+assert.equal(definition.externalParameters.workflow.repository, 'https://github.com/alexandroit/stackline-png-chunks-extract')
+assert.equal(definition.externalParameters.workflow.path, '.github/workflows/publish.yml')
+const sourceCommit = definition.resolvedDependencies.find((entry) => entry.uri.startsWith('git+https://github.com/alexandroit/stackline-png-chunks-extract@'))?.digest.gitCommit
+assert.match(sourceCommit, /^[0-9a-f]{40}$/)
 const tarballUrl = new URL(official.dist.tarball)
 assert.equal(tarballUrl.origin, registry)
 const officialBytes = Buffer.from(await (await get(tarballUrl)).arrayBuffer())
@@ -51,7 +64,7 @@ try {
   ]) {
     const cwd = path.join(workspace, kind)
     await mkdir(cwd)
-    await writeFile(path.join(cwd, 'package.json'), JSON.stringify({ private: true, dependencies: { [key]: spec } }))
+    await writeFile(path.join(cwd, 'package.json'), JSON.stringify({ name: `png-registry-${kind}`, version: '1.0.0', private: true, dependencies: { [key]: spec } }))
     // Normal installation deliberately keeps lifecycle behavior enabled.
     const installed = spawnSync('npm', ['install', '--omit=dev', '--no-fund', '--registry', registry], {
       cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']
@@ -72,7 +85,7 @@ try {
     assert.deepEqual(tree.problems || [], [])
     const audit = JSON.parse(npm(['audit', '--omit=dev', '--audit-level=low', '--json', '--registry', registry], cwd))
     assert.equal(audit.metadata.vulnerabilities.total, 0)
-    const signatures = npm(['audit', 'signatures', '--registry', registry], cwd)
+    const signatures = await retryAttestationAudit(() => npm(['audit', 'signatures', '--registry', registry], cwd))
     const sbom = JSON.parse(npm(['sbom', '--omit=dev', '--sbom-format=cyclonedx'], cwd))
     assert.equal(sbom.components.length, 1)
     assert.equal(sbom.components[0].version, metadata.version)
@@ -90,7 +103,9 @@ const evidence = {
   schema: 'stackline-registry-verification-v1',
   observedAt: new Date().toISOString(),
   package: identity,
-  sourceCommit: process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
+  sourceCommit,
+  verificationCommit: process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
+  publicationRun: statement.predicate.runDetails.metadata.invocationId,
   archive: path.basename(archive),
   bytes: localBytes.length,
   sha256,

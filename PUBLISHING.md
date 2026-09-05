@@ -27,6 +27,14 @@ tarball byte-for-byte, validates registry signatures and provenance, and audits
 fresh normal scoped and legacy-key alias installations. The workflow retains
 the archive and verification evidence as `published-package-evidence`.
 
+If npm succeeds but verification fails, do not republish the version. The
+workflow can resume verification: it skips publication only when the registry
+metadata and downloaded tarball match the CI artifact exactly. Different bytes
+or registry errors stop the workflow. Verification waits for new attestations
+to propagate and retries only attestation HTTP 404 responses, never invalid
+signatures. Evidence records the source commit from the verified provenance
+separately from the commit running verification.
+
 Download and preserve that evidence. Create the annotated `stackline-v<version>`
 tag at the verified source commit; wait for its CI and CodeQL checks. Add the
 tarball, checksums and evidence to a draft GitHub release before publishing the

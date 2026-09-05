@@ -70,7 +70,11 @@ jobs:
           node -e "require('node:assert/strict').deepEqual(require(process.argv[1]), require('./package.json'))" "$RUNNER_TEMP/packed-package.json"
           sha256sum "$archive"
           npm --version
+      - name: Check whether this exact artifact is already published
+        id: registry
+        run: node scripts/check-publish-status.mjs artifact/*.tgz
       - name: Publish the exact CI tarball with OIDC and provenance
+        if: steps.registry.outputs.published == 'false'
         run: npm publish ./artifact/*.tgz --access public --provenance --ignore-scripts
       - name: Verify npm bytes, normal installs, signatures, and provenance
         run: node scripts/verify-registry.mjs artifact/*.tgz
