@@ -43,7 +43,7 @@ try {
   const direct = path.join(temporary, 'direct')
   await mkdir(direct)
   await writeFile(path.join(direct, 'package.json'), `${JSON.stringify({ private: true, dependencies: { [metadata.name]: `file:${tarball}` } }, null, 2)}\n`)
-  const directInstall = runSync('npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund'], direct)
+  const directInstall = runSync('npm', ['install', '--no-audit', '--no-fund'], direct)
   assert.equal(directInstall.status, 0, directInstall.stdout + directInstall.stderr)
   assert.doesNotMatch(directInstall.stdout + directInstall.stderr, /warn|deprecated|invalid|extraneous/i)
   const cjs = runSync(process.execPath, ['--input-type=commonjs', '-e', [
@@ -104,9 +104,9 @@ try {
 
   const alias = path.join(temporary, 'alias')
   await mkdir(alias)
-  await writeFile(path.join(alias, 'package.json'), `${JSON.stringify({ private: true, dependencies: { 'png-chunks-extract': 'npm:@stackline/png-chunks-extract@1.0.0' } }, null, 2)}\n`)
+  await writeFile(path.join(alias, 'package.json'), `${JSON.stringify({ private: true, dependencies: { 'png-chunks-extract': `npm:${metadata.name}@${metadata.version}` } }, null, 2)}\n`)
   const registry = `http://127.0.0.1:${server.address().port}`
-  const aliasInstall = await run('npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', '--registry', registry], alias)
+  const aliasInstall = await run('npm', ['install', '--no-audit', '--no-fund', '--registry', registry], alias)
   assert.equal(aliasInstall.status, 0, aliasInstall.stdout + aliasInstall.stderr)
   assert.doesNotMatch(aliasInstall.stdout + aliasInstall.stderr, /warn|deprecated|invalid|extraneous/i)
   const aliasCjs = runSync(process.execPath, ['-e', [

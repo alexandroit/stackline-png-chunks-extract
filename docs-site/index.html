@@ -7,7 +7,7 @@
   <title>@stackline/png-chunks-extract | Alexandro.Net</title>
   <link rel="canonical" href="https://alexandro.net/docs/vanilla/png-chunks-extract/">
   <link rel="stylesheet" href="styles.css">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"@stackline/png-chunks-extract","version":"1.0.0","description":"Dependency-free PNG chunk extraction with bounded envelope and CRC validation.","codeRepository":"https://github.com/alexandroit/stackline-png-chunks-extract","license":"https://opensource.org/license/mit","programmingLanguage":["JavaScript","TypeScript"],"runtimePlatform":"Node.js >=18; modern browsers","url":"https://alexandro.net/docs/vanilla/png-chunks-extract/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"@stackline/png-chunks-extract","version":"1.0.1","description":"Dependency-free PNG chunk extraction with bounded envelope and CRC validation.","codeRepository":"https://github.com/alexandroit/stackline-png-chunks-extract","license":"https://opensource.org/license/mit","programmingLanguage":["JavaScript","TypeScript"],"runtimePlatform":"Node.js >=18; modern browsers","url":"https://alexandro.net/docs/vanilla/png-chunks-extract/"}</script>
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to package documentation</a>
@@ -31,7 +31,7 @@
       </div>
       <aside class="facts" aria-label="Package facts">
         <dl>
-          <div><dt>Version</dt><dd>1.0.0</dd></div>
+          <div><dt>Version</dt><dd>1.0.1</dd></div>
           <div><dt>Runtime</dt><dd>Node.js ≥18</dd></div>
           <div><dt>Formats</dt><dd>CJS · ESM · browser</dd></div>
           <div><dt>Types</dt><dd>TypeScript 3.9+</dd></div>
@@ -46,7 +46,7 @@
       <h2 id="install-title">One callable function</h2>
       <div class="code-card">
         <button type="button" data-copy-target="install-command" aria-label="Copy install command">Copy</button>
-        <pre id="install-command"><code>npm install @stackline/png-chunks-extract@1.0.0</code></pre>
+        <!--email_off--><pre id="install-command"><code>npm install @stackline/png-chunks-extract@1.0.1</code></pre><!--/email_off-->
       </div>
       <div class="grid">
         <article>
@@ -100,11 +100,11 @@ const chunks = extract(bytes)</code></pre>
       <p>An npm alias lets existing <code>require('png-chunks-extract')</code> and default imports remain unchanged.</p>
       <div class="code-card">
         <button type="button" data-copy-target="alias-code" aria-label="Copy npm alias">Copy</button>
-        <pre id="alias-code"><code>{
+        <!--email_off--><pre id="alias-code"><code>{
   "dependencies": {
-    "png-chunks-extract": "npm:@stackline/png-chunks-extract@1.0.0"
+    "png-chunks-extract": "npm:@stackline/png-chunks-extract@1.0.1"
   }
-}</code></pre>
+}</code></pre><!--/email_off-->
       </div>
       <p>Run a clean install, the downstream test/build suite, one representative valid PNG, and malformed checks for a missing <code>IEND</code> CRC and a huge declared length without payload.</p>
     </section>

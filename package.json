@@ -1,6 +1,6 @@
 {
   "name": "@stackline/png-chunks-extract",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dependency-free PNG chunk extraction with bounded validation and CRC checks",
   "keywords": [
     "png",

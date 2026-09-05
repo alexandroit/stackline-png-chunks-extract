@@ -18,7 +18,7 @@ An npm alias preserves an existing dependency key and every root import:
 ```json
 {
   "dependencies": {
-    "png-chunks-extract": "npm:@stackline/png-chunks-extract@^1.0.0"
+    "png-chunks-extract": "npm:@stackline/png-chunks-extract@^1.0.1"
   }
 }
 ```

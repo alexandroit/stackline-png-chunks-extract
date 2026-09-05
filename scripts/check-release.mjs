@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 
 const metadata = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
 assert.equal(metadata.name, '@stackline/png-chunks-extract')
-assert.equal(metadata.version, '1.0.0')
+assert.match(metadata.version, /^\d+\.\d+\.\d+$/)
 assert.equal(metadata.license, 'MIT')
 assert.equal(metadata.repository.url, 'git+https://github.com/alexandroit/stackline-png-chunks-extract.git')
 assert.equal(metadata.homepage, 'https://alexandro.net/docs/vanilla/png-chunks-extract/')

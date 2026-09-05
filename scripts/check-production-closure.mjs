@@ -20,7 +20,7 @@ try {
   const record = JSON.parse(packed.stdout.slice(packed.stdout.lastIndexOf('\n[') + 1))[0]
   tarball = path.join(root, record.filename)
   await writeFile(path.join(temporary, 'package.json'), `${JSON.stringify({ private: true, dependencies: { [metadata.name]: `file:${tarball}` } }, null, 2)}\n`)
-  const installed = spawnSync('npm', ['install', '--ignore-scripts', '--omit=dev', '--no-audit', '--no-fund'], { cwd: temporary, encoding: 'utf8' })
+  const installed = spawnSync('npm', ['install', '--omit=dev', '--no-audit', '--no-fund'], { cwd: temporary, encoding: 'utf8' })
   assert.equal(installed.status, 0, installed.stdout + installed.stderr)
   const lock = JSON.parse(await readFile(path.join(temporary, 'package-lock.json'), 'utf8'))
   assert.deepEqual(Object.keys(lock.packages).filter(Boolean), ['node_modules/@stackline/png-chunks-extract'])

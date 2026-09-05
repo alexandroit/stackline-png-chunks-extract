@@ -3,6 +3,17 @@
 All notable changes to this independently maintained package are documented
 here.
 
+## 1.0.1 - 2026-09-05
+
+- Publish through GitHub Actions with npm trusted publishing and provenance,
+  using the exact tarball from a successful CI run after CodeQL passes.
+- Reconcile the published tarball with fresh scoped and legacy-key alias
+  consumers, registry signatures, provenance, and zero-dependency audits.
+- Prevent Cloudflare email obfuscation from rewriting versioned npm commands.
+- Refresh the public documentation and make release checks follow the package
+  version. Run packed-consumer installs with normal lifecycle behavior.
+- Preserve parser behavior, supported entry points, and zero runtime dependencies.
+
 ## 1.0.0 - 2026-09-01
 
 - Preserve the callable CommonJS root, valid chunk outputs, `Buffer` and

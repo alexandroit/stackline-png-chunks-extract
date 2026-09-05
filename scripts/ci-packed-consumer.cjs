@@ -13,7 +13,7 @@ const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'stackline-png-chunks-ex
 
 try {
   fs.writeFileSync(path.join(workspace, 'package.json'), `${JSON.stringify({ private: true }, null, 2)}\n`)
-  const installed = spawnSync('npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', path.join(artifactDirectory, archives[0])], {
+  const installed = spawnSync('npm', ['install', '--no-audit', '--no-fund', path.join(artifactDirectory, archives[0])], {
     cwd: workspace,
     shell: process.platform === 'win32',
     stdio: 'inherit'

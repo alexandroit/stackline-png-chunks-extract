@@ -34,11 +34,11 @@ const metadata = JSON.parse(site['package-meta.json'])
 const packageJson = JSON.parse(read(projectDir, 'package.json'))
 
 assert.equal(metadata.name, packageName)
-assert.equal(metadata.version, '1.0.0')
+assert.equal(metadata.version, packageJson.version)
 assert.equal(metadata.chunkLengthMaximum, 2147483647)
 assert.equal(metadata.productionDependencies, 0)
 assert.equal(packageJson.name, packageName)
-assert.equal(packageJson.version, '1.0.0')
+assert.match(packageJson.version, /^\d+\.\d+\.\d+$/)
 assert.equal(packageJson.homepage, canonical)
 assert.equal(packageJson.engines.node, '>=18.0.0')
 assert.deepEqual(packageJson.dependencies, {})
@@ -50,8 +50,8 @@ includesAll(html, [
   'href="#content"',
   '<main id="content" tabindex="-1">',
   '<h1 id="page-title">@stackline/<span>png-chunks-extract</span></h1>',
-  'npm install @stackline/png-chunks-extract@1.0.0',
-  'png-chunks-extract": "npm:@stackline/png-chunks-extract@1.0.0"',
+  `npm install ${packageName}@${packageJson.version}`,
+  `png-chunks-extract": "npm:${packageName}@${packageJson.version}"`,
   'Node.js ≥18',
   'CJS · ESM · browser',
   '2^31 - 1',
@@ -70,7 +70,7 @@ assert(jsonLdMatch, 'package page is missing JSON-LD')
 const jsonLd = JSON.parse(jsonLdMatch[1])
 assert.equal(jsonLd['@type'], 'SoftwareSourceCode')
 assert.equal(jsonLd.name, packageName)
-assert.equal(jsonLd.version, '1.0.0')
+assert.equal(jsonLd.version, packageJson.version)
 assert.equal(jsonLd.url, canonical)
 assert.equal(jsonLd.runtimePlatform, 'Node.js >=18; modern browsers')
 
@@ -90,7 +90,7 @@ for (const location of locations) {
 }
 
 for (const value of [site['llms.txt'], site['llms-full.txt']]) {
-  includesAll(value, ['@stackline/png-chunks-extract@1.0.0', 'png-chunks-extract@1.0.0', 'png-chunks-extract@npm:@stackline/png-chunks-extract@1.0.0', 'Node.js 18', canonical, 'IEND', 'zero'], 'machine-readable package reference')
+  includesAll(value, [`${packageName}@${packageJson.version}`, 'png-chunks-extract@1.0.0', `png-chunks-extract@npm:${packageName}@${packageJson.version}`, 'Node.js 18', canonical, 'IEND', 'zero'], 'machine-readable package reference')
 }
 
 const localLinkPattern = /(?:href|src)="([^"#][^"]*)"/g
