@@ -78,7 +78,7 @@ jobs:
         run: npm publish ./artifact/*.tgz --access public --provenance --ignore-scripts
       - name: Verify npm bytes, normal installs, signatures, and provenance
         run: node scripts/verify-registry.mjs artifact/*.tgz
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a7 # v7.0.1
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: published-package-evidence
           path: artifact/*

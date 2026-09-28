@@ -15,5 +15,5 @@
   "runtimeFloor": "Node.js 18",
   "types": "TypeScript 3.9 and modern conditional declarations",
   "upstreamBaseline": "png-chunks-extract 1.0.0",
-  "version": "1.0.1"
+  "version": "1.0.2"
 }

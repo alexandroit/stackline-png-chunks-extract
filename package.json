@@ -1,6 +1,6 @@
 {
   "name": "@stackline/png-chunks-extract",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Dependency-free PNG chunk extraction with bounded validation and CRC checks",
   "keywords": [
     "png",
@@ -10,7 +10,8 @@
     "crc32",
     "uint8array",
     "zero-dependency",
-    "stackline"
+    "stackline",
+    "png-chunks"
   ],
   "license": "MIT",
   "author": "Stackline maintainers",
