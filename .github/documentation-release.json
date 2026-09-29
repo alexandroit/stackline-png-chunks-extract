@@ -1,0 +1,31 @@
+{
+  "repository": "alexandroit/stackline-png-chunks-extract",
+  "packages": [
+    {
+      "name": "@stackline/png-chunks-extract",
+      "path": "README.md",
+      "version": "1.0.4",
+      "baselineVersion": "1.0.3",
+      "keywords": [
+        "stackline",
+        "npm-package",
+        "png-chunks-extract",
+        "typescript",
+        "nodejs",
+        "png",
+        "chunks",
+        "metadata",
+        "parser",
+        "crc32",
+        "uint8array",
+        "zero-dependency",
+        "png-chunks"
+      ],
+      "homepage": "https://alexandro.net/docs/vanilla/png-chunks-extract/",
+      "baselineTarball": "https://registry.npmjs.org/@stackline/png-chunks-extract/-/png-chunks-extract-1.0.3.tgz",
+      "baselineIntegrity": "sha512-fbWEbq9JKlLCEsu/d54zo15dNmIsA/PCaUeQbvscSiJpQL64yFSIK3jK1FiK8ETL2EdMWsJIUdOwV1622XQCOQ==",
+      "expectedSha512": "3cc894024bac83f471494a4d1aa94f9201f97db6c0080ecb11811108f4f92c0a31e1578904ff6e7e58ab403375df2587357922ff32008083d20d5fecde474e6e",
+      "tag": "docs-stackline-png-chunks-extract-v1.0.4"
+    }
+  ]
+}
