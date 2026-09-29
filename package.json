@@ -1,8 +1,13 @@
 {
   "name": "@stackline/png-chunks-extract",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Dependency-free PNG chunk extraction with bounded validation and CRC checks",
   "keywords": [
+    "stackline",
+    "npm-package",
+    "png-chunks-extract",
+    "typescript",
+    "nodejs",
     "png",
     "chunks",
     "metadata",
@@ -10,7 +15,6 @@
     "crc32",
     "uint8array",
     "zero-dependency",
-    "stackline",
     "png-chunks"
   ],
   "license": "MIT",
