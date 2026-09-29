@@ -11,7 +11,7 @@
 **[Issues](https://github.com/alexandroit/stackline-png-chunks-extract/issues)** |
 **[Repository](https://github.com/alexandroit/stackline-png-chunks-extract)**
 
-**Package version:** `1.0.2`
+**Package version:** `1.0.3`
 
 ## Why this package?
 
@@ -26,7 +26,7 @@ endorsed by Hugh Kennedy or the original project.
 
 | Item | Value |
 | --- | --- |
-| Package | `@stackline/png-chunks-extract@1.0.2` |
+| Package | `@stackline/png-chunks-extract@1.0.3` |
 | Node.js runtime | `>=18.0.0` |
 | CommonJS / primary entry | `./index.js` |
 | ES module entry | `./index.mjs` |

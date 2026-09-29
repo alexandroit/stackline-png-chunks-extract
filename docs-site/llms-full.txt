@@ -1,6 +1,6 @@
-# @stackline/png-chunks-extract@1.0.2
+# @stackline/png-chunks-extract@1.0.3
 
-Alexandro.Net documents `@stackline/png-chunks-extract@1.0.2`, an independently
+Alexandro.Net documents `@stackline/png-chunks-extract@1.0.3`, an independently
 maintained, dependency-free compatibility continuation of
 `png-chunks-extract@1.0.0`.
 
@@ -31,7 +31,7 @@ image semantics.
 
 Existing imports can remain unchanged through the exact alias:
 
-`png-chunks-extract@npm:@stackline/png-chunks-extract@1.0.2`
+`png-chunks-extract@npm:@stackline/png-chunks-extract@1.0.3`
 
 Downstreams should run a clean install, their ordinary tests/build, a valid PNG
 smoke test, and malformed tests for a missing IEND CRC and a huge declaration

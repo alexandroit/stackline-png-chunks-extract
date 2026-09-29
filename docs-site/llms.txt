@@ -1,4 +1,4 @@
-# @stackline/png-chunks-extract@1.0.2 on Alexandro.Net
+# @stackline/png-chunks-extract@1.0.3 on Alexandro.Net
 
 - Canonical documentation: https://alexandro.net/docs/vanilla/png-chunks-extract/
 - Source: https://github.com/alexandroit/stackline-png-chunks-extract
@@ -11,7 +11,7 @@
 
 Identity-preserving npm alias:
 
-png-chunks-extract@npm:@stackline/png-chunks-extract@1.0.2
+png-chunks-extract@npm:@stackline/png-chunks-extract@1.0.3
 
 The package accepts Buffer and Uint8Array, returns detached Uint8Array chunk
 payloads, proves the full chunk envelope before payload allocation, enforces

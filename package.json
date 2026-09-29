@@ -1,6 +1,6 @@
 {
   "name": "@stackline/png-chunks-extract",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Dependency-free PNG chunk extraction with bounded validation and CRC checks",
   "keywords": [
     "png",
@@ -110,7 +110,7 @@
     "@arethetypeswrong/cli": "0.18.5",
     "@eslint/js": "10.0.1",
     "c8": "12.0.0",
-    "crc-32": "1.2.2",
+    "crc-32": "npm:@stackline/crc-32@1.0.0",
     "esbuild": "0.28.2",
     "eslint": "10.9.1",
     "png-chunks-extract-upstream": "npm:png-chunks-extract@1.0.0",

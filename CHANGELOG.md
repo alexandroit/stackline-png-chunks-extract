@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+
+- Reuse the maintained `@stackline/crc-32@1.0.0` alias for development validation. Published runtime remains self-contained.
+
 ## [1.0.2] - 2026-09-28
 
 - Organize package documentation, preserve API and migration examples, and add Stackline community links.
