@@ -28,7 +28,6 @@ jobs:
         run: python3 .github/documentation-artifact.py .github/documentation-release.json artifact
       - name: Publish, verify provenance and create immutable release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_DOCUMENTATION_TOKEN }}
           GH_TOKEN: ${{ github.token }}
         run: python3 .github/publish-documentation.py
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a

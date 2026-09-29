@@ -34,7 +34,7 @@ for p in PLAN['packages']:
   time.sleep(5)
  att=json.loads(get(metadata['dist']['attestations']['url']));entries=[x for x in att['attestations'] if x['predicateType']=='https://slsa.dev/provenance/v1'];assert len(entries)==1
  statement=json.loads(base64.b64decode(entries[0]['bundle']['dsseEnvelope']['payload']));assert statement['subject']==[{'name':'pkg:npm/'+(p['name']+'@'+p['version']).replace('@','%40',1) if p['name'].startswith('@') else 'pkg:npm/'+p['name']+'@'+p['version'],'digest':{'sha512':p['expectedSha512']}}]
- definition=statement['predicate']['buildDefinition'];assert definition['externalParameters']['workflow']=={'ref':REF,'repository':'https://github.com/'+REPO,'path':'.github/workflows/documentation-release.yml'};assert definition['internalParameters']['github']['event_name']=='push'
+ definition=statement['predicate']['buildDefinition'];assert definition['externalParameters']['workflow']=={'ref':REF,'repository':'https://github.com/'+REPO,'path':PLAN.get('workflowPath','.github/workflows/documentation-release.yml')};assert definition['internalParameters']['github']['event_name']=='push'
  deps=[x for x in definition['resolvedDependencies'] if x['uri']==f'git+https://github.com/{REPO}@{REF}'];assert len(deps)==1 and deps[0]['digest']['gitCommit']==p.get('expectedSourceCommit',SHA)
  invocation=statement['predicate']['runDetails']['metadata']['invocationId'];assert invocation.rsplit('/attempts/',1)[0]==p.get('expectedPublicationRun',RUN).rsplit('/attempts/',1)[0]
  with tempfile.TemporaryDirectory() as tmp:

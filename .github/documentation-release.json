@@ -27,5 +27,6 @@
       "expectedSha512": "9da0be67bf786f2b72c0a81ce3d88382c59ece868de06bf598033545fa6506c5c2694f9f264a163d7242aacbc8eab1aab983dd040ccc1aa9928b72d0d3ae973d",
       "tag": "docs-stackline-png-chunks-extract-v1.0.5"
     }
-  ]
+  ],
+  "workflowPath": ".github/workflows/publish.yml"
 }
